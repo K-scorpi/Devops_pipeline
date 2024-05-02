@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  server1:
+        container_name: server1
+        # restart: always на будуюшие
+        build: 
+          context: ./.docker
+          dockerfile: server1.Dockerfile
+        image: ubuntu:20.04
+        volumes:
+          - ./server1:/server
+        environment:
+          DB_HOST: server2
+          DB_USER: postgres
+          DB_PASSWORD: password
+          DB_NAME: my_database
+        command: >
+          tail -f /dev/null
+        ports:
+          - "2221:22"
+          - "80:80"
+          - "443:443"
+          - "8080:8080"
+        networks:
+          - my-network 
+          
+  server2:
+      container_name: server2
+      build: 
+        context: ./.docker
+        dockerfile: server2.Dockerfile
+      image: ubuntu:20.04
+      volumes:
+        - ./server2:/server
+      environment:
+        POSTGRES_HOST_AUTH_METHOD: trust
+      ports:
+        - "2222:22"
+        - "5432:5432"
+      command: >
+        tail -f /dev/null 
+      networks:
+        - my-network
+ 
+networks:
+  my-network:
+    driver: bridge    
