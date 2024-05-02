@@ -1,9 +1,15 @@
-# Board-Game-5k-Python-ML
-## ML model for game names
+### Запуск docker контейнера
+docker-compose up -d
 
-[link](https://gitverse.ru/vr/solo-hackathon)
+docker network create my-network
 
-Выполненные пункты:
-- [ ] Узичть код, условия задачи 
-- [ ] Обучить модель лучше уровня 10.54
-- [ ] Сделайть свой **dataset**
+docker exec -it server2 bash 
+### Для индивидуальных контейнеров 
+sudo docker run -it --rm 47955169devops:latest
+
+В целях труднозатроности и неустоичисвости, вынужден разбить на образы и скомпоновать из отдельно
+### Задачи на проект
+- [ ] Запустить nginx на server_2
+- [x] Запустить server2 и проверить работоспособность 
+- [x] Подтянуть postgres на server_1
+- [x] Настроить доступ к PostgreSQL на сервере А только с сервера Б, закроет доступ к nginx на сервере Б с сервера А
